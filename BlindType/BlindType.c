@@ -2,8 +2,6 @@
 #include <windows.h>
 #include <conio.h>
 
-
-
 void printToCons(char *string, int len, int right, int sleep) {
 
 	for (int i = 0; i < right; i++) printf(" ");
@@ -38,43 +36,44 @@ void REinitialize() {
 
 }
 
-void QuickThink() {
+int QuickThink() {
 	
-
 	system("cls");
 	for (int i = 0; i < 3; i++) printf("\n");
-	printToCons("A letter will appear on the screen.\nYou need to click on it as quickly as possible", 83, 0, 20);
+	printToCons("A letter will appear on the screen.\nYou need to click on it as quickly as possible", 83, 0, 10);
 	Sleep(200);
 	printf("You are Ready? (Y/N)\n1. Yes\n2. No");
 
 	int key = _getch();
 	printf("%d", key);
-	while (key != 49 && key != 50) {
-		key = _getch();
-		system("cls");
-		for (int i = 0; i < 3; i++) printf("\n");
-		printf("A letter will appear on the screen.\nYou need to click on it as quickly as possible\n");
-		printf("You are Ready? (Y/N)\n1. Yes\n2. No");
-		printf("%d", key);
+	while (1) {
+		while (key != 49 && key != 50) key = _getch();
+
+		if (key == 49) {
+			printf("In progress!");
+			return 0; 
+		}
+		if (key == 50) return 0;
 	}
 
-
-
-
-
+	return 0;
 }
 
 int main() {
-	//initialize();
-	
+	initialize();
+
 	int key = _getch();
 
-	//while (key != 49 && key != 50) {
-	//	key = _getch();
-	//	REinitialize();
-	//}
-	
-	if (key == 49) QuickThink();
+	while (1) {
+		REinitialize();
+		while (key != 49 && key != 50 && key != 113) key = _getch();
+		
+		if (key == 49) QuickThink();
+		if (key == 50) printf("In progress!");
+		if (key == 113) return 0;
 
-	return 0; 
+		key = 0;
+	}
 }
+
+
