@@ -27,15 +27,35 @@ void initialize(tmp) {
 }
 
 void trainThink() {
-	char alphabet[26] = "abcdefghijklmnopqrstuvwxyz";
-	for (int i = 0; i < 10; i++) {
-		srand(time(NULL));
-		int randtime = (1 + rand() % 10) * 100;
-		srand(time(NULL));
-		int letter = 1 + rand() % 26;
-		printf("letter: %c, letterN: %d, time: %d ", alphabet[letter], letter, randtime);
-		printf("\n");
+	char alphabet[27] = "abcdefghijklmnopqrstuvwxyz";
+	int mintime;
+	clock_t end;
+	clock_t begin;
+
+	srand(time(NULL));
+	int randtime = (1 + rand() % 10) * 1000;
+	srand(time(NULL));
+	int letter = 1 + rand() % 26;
+	double time_spent = 0.0;
+
+	Sleep(randtime);
+	printf("%c", alphabet[letter]);
+
+	begin = clock();
+
+	while (1) {
+		if (_getch() == (int)alphabet[letter]) {
+			end = clock();
+			break;
+		}
 	}
+	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+
+	printf("The elapsed time is %f seconds", time_spent);
+
+	return 0;
+
+
 }
 
 int QuickThink() {
