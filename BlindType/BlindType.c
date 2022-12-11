@@ -1,6 +1,8 @@
 ﻿#include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+#include <time.h>
+#include <stdlib.h>
 
 void printToCons(char *string, int len, int right, int sleep) {
 
@@ -25,8 +27,15 @@ void initialize(tmp) {
 }
 
 void trainThink() {
-
-
+	char alphabet[26] = "abcdefghijklmnopqrstuvwxyz";
+	for (int i = 0; i < 10; i++) {
+		srand(time(NULL));
+		int randtime = (1 + rand() % 10) * 100;
+		srand(time(NULL));
+		int letter = 1 + rand() % 26;
+		printf("letter: %c, letterN: %d, time: %d ", alphabet[letter], letter, randtime);
+		printf("\n");
+	}
 }
 
 int QuickThink() {
@@ -54,20 +63,21 @@ int QuickThink() {
 }
 
 int main() {
-	initialize(1);
+	trainThink();
+	//initialize(1);
 
-	int key = _getch();
+	//int key = _getch();
 
-	while (1) {
-		initialize(0);
-		while (key != 49 && key != 50 && key != 113) key = _getch();
-	
-		if (key == 49) QuickThink();
-		if (key == 50) printf("In progress!");
-		if (key == 113) return 0;
+	//while (1) {
+	//	initialize(0);
+	//	while (key != 49 && key != 50 && key != 113) key = _getch();
+	//
+	//	if (key == 49) QuickThink();
+	//	if (key == 50) printf("In progress!");
+	//	if (key == 113) return 0;
 
-		key = 0;
-	}
+	//	key = 0;
+	//}
 }
 
 
