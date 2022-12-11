@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "Header.h"
 
 void printToCons(char *string, int len, int right, int sleep) {
 
@@ -28,34 +29,39 @@ void initialize(tmp) {
 
 void trainThink() {
 	char alphabet[27] = "abcdefghijklmnopqrstuvwxyz";
-	int mintime;
+	double mintime = 0, maxtime = 0;
 	clock_t end;
 	clock_t begin;
-
-	srand(time(NULL));
-	int randtime = (1 + rand() % 10) * 1000;
-	srand(time(NULL));
-	int letter = 1 + rand() % 26;
+	int randtime;
+	int letter;
 	double time_spent = 0.0;
+	
+	system("cls");
+	printf("How many test you need?");
+	int count = _getch() - 48;
+	for (int i = 0; i < count; i++) {
 
-	Sleep(randtime);
-	printf("%c", alphabet[letter]);
+		system("cls");
+		srand(time(NULL));
+		randtime = (1 + rand() % 10) * 1000;
+		letter = 1 + rand() % 26;
+		Sleep(randtime);
+		PrintLetter((int)alphabet[letter]);
 
-	begin = clock();
+		begin = clock();
 
-	while (1) {
-		if (_getch() == (int)alphabet[letter]) {
-			end = clock();
-			break;
+		while (1) {
+			if (_getch() == (int)alphabet[letter]) {
+				end = clock();
+				break;
+			}
 		}
+
+		time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+
 	}
-	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
-
-	printf("The elapsed time is %f seconds", time_spent);
-
-	return 0;
-
-
+	system("cls");
+	printf("Your average time %.3f\n Your max time: %.3f\n Your min time: %.3f", time_spent/count, maxtime, mintime);
 }
 
 int QuickThink() {
@@ -67,14 +73,10 @@ int QuickThink() {
 	printf("You are Ready? (Y/N)\n1. Yes\n2. No");
 
 	int key = _getch();
-	printf("%d", key);
 	while (1) {
 		while (key != 49 && key != 50) key = _getch();
 
-		if (key == 49) {
-			printf("In progress!");
-			return 0; 
-		}
+		if (key == 49) trainThink();
 		if (key == 50) return 0;
 
 		key = 0;
@@ -83,21 +85,20 @@ int QuickThink() {
 }
 
 int main() {
-	trainThink();
-	//initialize(1);
+	initialize(1);
 
-	//int key = _getch();
+	int key = _getch();
 
-	//while (1) {
-	//	initialize(0);
-	//	while (key != 49 && key != 50 && key != 113) key = _getch();
-	//
-	//	if (key == 49) QuickThink();
-	//	if (key == 50) printf("In progress!");
-	//	if (key == 113) return 0;
+	while (1) {
+		initialize(0);
+		while (key != 49 && key != 50 && key != 113) key = _getch();
+	
+		if (key == 49) QuickThink();
+		if (key == 50) printf("In progress!");
+		if (key == 113) return 0;
 
-	//	key = 0;
-	//}
+		key = 0;
+	}
 }
 
 
