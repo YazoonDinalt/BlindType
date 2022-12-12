@@ -94,7 +94,7 @@ void PrintLetter(int let) {
 		printf("           | / \n");
 		printf("           |/\n");
 		printf("           |\\\n");
-		printf("| \\\n");
+		printf("           | \\\n");
 	}
 	else if (let == 108) {
 		printf("\n\n\n\n\n");
